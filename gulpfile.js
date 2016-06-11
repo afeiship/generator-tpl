@@ -27,7 +27,7 @@ var config = {
 
 var scripts = [
   './src/angular/main.js',
-  './src/angular/directive/angular-photo-swipe.js'
+  './src/angular/directive/photo-swipe.js'
 ];
 
 
@@ -36,7 +36,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('sass', function () {
-  return gulp.src(config.src + '/sass/angular-photo-swipe.scss')
+  return gulp.src(config.src + '/sass/photo-swipe.scss')
     .pipe(sourcemaps.init())
     .pipe(sass(config.sassOptions).on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
@@ -53,7 +53,7 @@ gulp.task('sass', function () {
 
 gulp.task('scripts', function () {
   return gulp.src(scripts)
-    .pipe(concat('angular-angular-photo-swipe.js'))
+    .pipe(concat('angular-photo-swipe.js'))
     .pipe(gulp.dest('dist/js'))
     .pipe(uglify())
     .pipe(rename({

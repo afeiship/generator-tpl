@@ -1,8 +1,8 @@
 {
-  "name": "angular-angular-photo-swipe",
+  "name": "angular-photo-swipe",
   "version": "1.0.0",
   "description": "AngularJS directive for `JavaScript gallery, no dependencies.` http://photoswipe.com/",
-  "homepage": "https://github.com/afeiship/angular-angular-photo-swipe",
+  "homepage": "https://github.com/afeiship/angular-photo-swipe",
   "author": {
     "name": "afei",
     "email": "1290657123@qq.com"

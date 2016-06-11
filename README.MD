@@ -1,5 +1,5 @@
-#angular-angular-photo-swipe
+#angular-photo-swipe
 AngularJS directive for `JavaScript gallery, no dependencies.` http://photoswipe.com/
 
 ##usage:
-+ bower install `afeiship/angular-angular-photo-swipe`
++ bower install `afeiship/angular-photo-swipe`
