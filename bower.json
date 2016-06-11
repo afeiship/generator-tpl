@@ -1,0 +1,30 @@
+{
+  "name": "angular-angular-photo-swipe",
+  "description": "AngularJS directive for `JavaScript gallery, no dependencies.` http://photoswipe.com/",
+  "main": [
+    "dist/css/angular-angular-photo-swipe.css",
+    "dist/css/angular-angular-photo-swipe.min.css",
+    "dist/js/angular-angular-photo-swipe.js",
+    "dist/js/angular-angular-photo-swipe.min.js"
+  ],
+  "authors": [
+    "afei"
+  ],
+  "license": "MIT",
+  "keywords": ["photo","swipe","angular","directive","preview"],
+  "homepage": "https://github.com/afeiship/angular-angular-photo-swipe",
+  "moduleType": [
+    "amd"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "src"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}
