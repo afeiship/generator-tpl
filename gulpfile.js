@@ -27,7 +27,8 @@ var config = {
 
 var scripts = [
   './src/angular/main.js',
-  './src/angular/directive/photo-swipe.js'
+  './src/angular/directive/photo-swipe.js',
+  './src/angular/service/photo-swipe.js'
 ];
 
 
