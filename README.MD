@@ -3,6 +3,8 @@ AngularJS directive for `JavaScript gallery, no dependencies.` http://photoswipe
 
 ##usage:
 + bower install `afeiship/angular-photo-swipe`
++ import service:'nxPhotoSwipe'
++ nxPhotoSwipe.show(options);
 
 ##snapshot:
 ![snapshot1](https://raw.githubusercontent.com/afeiship/angular-photo-swipe/master/_snapshot/photo-swipe001.png)
