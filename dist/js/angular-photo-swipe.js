@@ -9,30 +9,47 @@
   'use strict';
 
   angular.module('nx.widget')
-    .directive('nxPhotoSwipe', ['$scope', function ($scope) {
+    .directive('photoSwipe', [ function () {
       return {
         restrict: 'E',
         scope: {
-          cssClass: '@',
-          value: '='
+          cssClass: '@'
         },
-        controller: ['$scope', function ($scope) {
-          $scope.plus = plus;
-          $scope.minus = minus;
-          $scope.value = $scope.value || 0;
-
-          function plus() {
-            $scope.value++;
-          }
-
-          function minus() {
-            $scope.value--;
-          }
-        }],
         template: '<div class="nx-widget-photo-swipe {{cssClass}}">' +
-        '<button class="btn plus" ng-click="plus()">+</button>' +
-        '<input class="value" ng-model="value" type="tel">' +
-        '<button class="btn minus" ng-click="minus()">-</button>' +
+          '<div class="pswp photo-swipe" tabindex="-1" role="dialog" aria-hidden="true">'+
+            '<div class="pswp__bg"></div>'+
+            '<div class="pswp__scroll-wrap">'+
+              '<div class="pswp__container">'+
+                '<div class="pswp__item"></div>'+
+                '<div class="pswp__item"></div>'+
+                '<div class="pswp__item"></div>'+
+              '</div>'+
+              '<div class="pswp__ui pswp__ui--hidden">'+
+                '<div class="pswp__top-bar">'+
+                  '<div class="pswp__counter"></div>'+
+                  '<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>'+
+                  '<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>'+
+                  '<div class="pswp__preloader">'+
+                    '<div class="pswp__preloader__icn">'+
+                      '<div class="pswp__preloader__cut">'+
+                        '<div class="pswp__preloader__donut"></div>'+
+                      '</div>'+
+                    '</div>'+
+                  '</div>'+
+                '</div>'+
+                '<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">'+
+                  '<div class="pswp__share-tooltip"></div>'+
+                '</div>'+
+                '<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">'+
+                '</button>'+
+                '<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">'+
+                '</button>'+
+                '<div class="pswp__caption">'+
+                  '<div class="pswp__caption__center"></div>'+
+                '</div>'+
+              '</div>'+
+            '</div>'+
+          '</div>'+
         '</div>'
       };
 
@@ -57,57 +74,50 @@
     '$compile',
     '$sce',
     function ($rootScope, $timeout, $compile, $sce) {
-
       var scope, element;
       var defaults = {
-        interval: 2000,
         cssClass: '',
-        msg: _trustAsHtml('You toast <b>msg</b>!'),
-        visible: false
+        history:false,
+        index:0,
+        preload:true
       };
+
       initial();
 
       return {
         init: initial,
-        show: Toast,
-        destroy: destroy
+        show:show
       };
 
       function initial() {
         scope = extend($rootScope.$new(true), defaults);
 
-        element = scope.element = $compile('<toast></toast>')(scope);
+        element = scope.element = $compile('<photo-swipe></photo-swipe>')(scope);
         jqLite(document.body).append(element);
       }
 
-      function Toast(inOptions) {
-
+      function show(inOptions) {
         //init default options:
         var options = extend(scope, inOptions || {});
-        scope.show = function () {
-          scope.msg = _trustAsHtml(options.msg);
-          scope.visible = true;
-          scope.close();
-        };
+        var index = options.index || 0;
+        var pswpElement = document.querySelectorAll('.photo-swipe')[0];
+        var items = [];
+        options.images.forEach(function (img) {
+          items.push({
+            src:img,
+            w: 800,
+            h: 600
+          });
+        });
 
-        scope.close = function () {
-          $timeout(function () {
-            scope.visible = false;
-          }, options.interval);
-        };
+        // Initializes and opens PhotoSwipe
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+          index: options.index,
+          history: options.history,
+          preload:options.preload
+        });
 
-
-        scope.show();
-      }
-
-      function destroy() {
-        scope.$destroy();
-        element.remove();
-      }
-
-      /**@private**/
-      function _trustAsHtml(inHtml) {
-        return $sce.trustAsHtml(inHtml);
+        gallery.init();
       }
 
     }]);

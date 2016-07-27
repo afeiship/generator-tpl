@@ -14,57 +14,50 @@
     '$compile',
     '$sce',
     function ($rootScope, $timeout, $compile, $sce) {
-
       var scope, element;
       var defaults = {
-        interval: 2000,
         cssClass: '',
-        msg: _trustAsHtml('You toast <b>msg</b>!'),
-        visible: false
+        history:false,
+        index:0,
+        preload:true
       };
+
       initial();
 
       return {
         init: initial,
-        show: Toast,
-        destroy: destroy
+        show:show
       };
 
       function initial() {
         scope = extend($rootScope.$new(true), defaults);
 
-        element = scope.element = $compile('<toast></toast>')(scope);
+        element = scope.element = $compile('<photo-swipe></photo-swipe>')(scope);
         jqLite(document.body).append(element);
       }
 
-      function Toast(inOptions) {
-
+      function show(inOptions) {
         //init default options:
         var options = extend(scope, inOptions || {});
-        scope.show = function () {
-          scope.msg = _trustAsHtml(options.msg);
-          scope.visible = true;
-          scope.close();
-        };
+        var index = options.index || 0;
+        var pswpElement = document.querySelectorAll('.photo-swipe')[0];
+        var items = [];
+        options.images.forEach(function (img) {
+          items.push({
+            src:img,
+            w: 800,
+            h: 600
+          });
+        });
 
-        scope.close = function () {
-          $timeout(function () {
-            scope.visible = false;
-          }, options.interval);
-        };
+        // Initializes and opens PhotoSwipe
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+          index: options.index,
+          history: options.history,
+          preload:options.preload
+        });
 
-
-        scope.show();
-      }
-
-      function destroy() {
-        scope.$destroy();
-        element.remove();
-      }
-
-      /**@private**/
-      function _trustAsHtml(inHtml) {
-        return $sce.trustAsHtml(inHtml);
+        gallery.init();
       }
 
     }]);

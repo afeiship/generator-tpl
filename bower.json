@@ -11,7 +11,15 @@
     "afei"
   ],
   "license": "MIT",
-  "keywords": ["angular","photoswipe","photo","swipe","ng","direcitve","nx"],
+  "keywords": [
+    "angular",
+    "photoswipe",
+    "photo",
+    "swipe",
+    "ng",
+    "direcitve",
+    "nx"
+  ],
   "homepage": "https://github.com/afeiship/angular-photo-swipe",
   "moduleType": [
     "amd"
@@ -25,6 +33,8 @@
     "src"
   ],
   "dependencies": {
-    "angular": "^1.5.5"
+    "angular": "^1.5.5",
+    "angular-module-stiffener": "afeiship/angular-module-stiffener",
+    "photoswipe": "^4.1.1"
   }
 }
