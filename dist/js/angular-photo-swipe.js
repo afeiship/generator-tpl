@@ -79,6 +79,10 @@
         cssClass: '',
         history:false,
         index:0,
+        rate:{
+          width:1,
+          heigh:1
+        },
         preload:true
       };
 
@@ -102,11 +106,12 @@
         var index = options.index || 0;
         var pswpElement = document.querySelectorAll('.photo-swipe')[0];
         var items = [];
+        
         options.images.forEach(function (img) {
           items.push({
             src:img,
-            w: 800,
-            h: 600
+            w: 0,
+            h: 0
           });
         });
 
@@ -115,6 +120,21 @@
           index: options.index,
           history: options.history,
           preload:options.preload
+        });
+
+
+        gallery.listen('gettingData', function(index, item) {
+          if (item.w < 1 || item.h < 1) { // unknown size
+            var img = new Image();
+            img.onload = function() { // will get size after load
+              item.w = this.width * options.rate.width; // set image width
+              item.h = this.height * options.rate.height; // set image height
+
+              gallery.invalidateCurrItems(); // reinit Items
+              gallery.updateSize(true); // reinit Items
+            };
+            img.src = item.src; // let's download image
+          }
         });
 
         gallery.init();

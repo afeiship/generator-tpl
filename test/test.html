@@ -57,7 +57,11 @@
       vm.showPhotoSwipe=function(inIndex){
         nxPhotoSwipe.show({
           index:inIndex,
-          images:vm.images
+          images:vm.images,
+          rate:{
+            width:0.4,
+            height:0.4
+          }
         });
       };
       //You directive demo code goes here!
