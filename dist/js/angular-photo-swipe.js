@@ -79,7 +79,7 @@
         cssClass: '',
         history:false,
         index:0,
-        rate:{
+        size:{
           width:1,
           heigh:1
         },
@@ -106,12 +106,12 @@
         var index = options.index || 0;
         var pswpElement = document.querySelectorAll('.photo-swipe')[0];
         var items = [];
-        
+
         options.images.forEach(function (img) {
           items.push({
             src:img,
-            w: 0,
-            h: 0
+            w: size.width,
+            h: size.height
           });
         });
 
@@ -127,8 +127,8 @@
           if (item.w < 1 || item.h < 1) { // unknown size
             var img = new Image();
             img.onload = function() { // will get size after load
-              item.w = this.width * options.rate.width; // set image width
-              item.h = this.height * options.rate.height; // set image height
+              item.w = this.width * size.rate.width; // set image width
+              item.h = this.height * size.rate.height; // set image height
 
               gallery.invalidateCurrItems(); // reinit Items
               gallery.updateSize(true); // reinit Items
