@@ -67,8 +67,8 @@
           if (item.w < 1 || item.h < 1) { // unknown size
             var img = new Image();
             img.onload = function() { // will get size after load
-              item.w = this.width * size.rate.width; // set image width
-              item.h = this.height * size.rate.height; // set image height
+              item.w = this.width * options.ize.width; // set image width
+              item.h = this.height * options.size.height; // set image height
 
               gallery.invalidateCurrItems(); // reinit Items
               gallery.updateSize(true); // reinit Items
