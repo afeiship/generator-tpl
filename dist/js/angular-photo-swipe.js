@@ -110,8 +110,8 @@
         options.images.forEach(function (img) {
           items.push({
             src:img,
-            w: size.width,
-            h: size.height
+            w: options.size.width,
+            h: options.size.height
           });
         });
 
@@ -127,7 +127,7 @@
           if (item.w < 1 || item.h < 1) { // unknown size
             var img = new Image();
             img.onload = function() { // will get size after load
-              item.w = this.width * options.ize.width; // set image width
+              item.w = this.width * options.size.width; // set image width
               item.h = this.height * options.size.height; // set image height
 
               gallery.invalidateCurrItems(); // reinit Items
