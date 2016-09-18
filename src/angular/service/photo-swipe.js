@@ -70,7 +70,7 @@
               item.w = this.width * options.size.width; // set image width
               item.h = this.height * options.size.height; // set image height
 
-              gallery.invalidateCurrItems(); // reinit Items
+              //gallery.invalidateCurrItems(); // reinit Items
               gallery.updateSize(true); // reinit Items
             };
             img.src = item.src; // let's download image
