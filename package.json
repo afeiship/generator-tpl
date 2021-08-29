@@ -1,5 +1,5 @@
 {
-  "name": "generator-typescript-app",
+  "name": "@jswork/generator-typescript-app",
   "version": "1.0.0",
   "description": "Yeoman generator for typescript based app.",
   "homepage": "https://github.com/afeiship/generator-typescript-app",
