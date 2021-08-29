@@ -55,7 +55,7 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.npmInstall();
+    console.log('Please run install packages by yourself.');
   }
 
   writing() {
