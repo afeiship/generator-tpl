@@ -1,5 +1,5 @@
 'use strict';
-const Generator = require('yeoman-generator');
+const Generator = require('@jswork/yeoman-generator');
 const yosay = require('yosay');
 const globby = require('globby');
 const replace = require('replace-in-file');

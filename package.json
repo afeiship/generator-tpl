@@ -1,6 +1,12 @@
 {
   "name": "@jswork/generator-tpl",
   "version": "1.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "generators/**/templates"
+    ]
+  },
   "description": "Yeoman generator for type of boilerplate from my github.",
   "keywords": [
     "yeoman",
@@ -12,6 +18,7 @@
   },
   "devDependencies": {
     "jest": "^28.0.3",
+    "lerna": "^3.22.1",
     "prettier": "^2.6.2",
     "yeoman-assert": "^3.1.1",
     "yeoman-environment": "^3.9.1",
@@ -19,6 +26,7 @@
   },
   "dependencies": {
     "@jswork/generator-prompts": "^1.1.6",
+    "@jswork/yeoman-generator": "^1.0.3",
     "@jswork/yeoman-generator-helper": "^1.0.6",
     "replace-in-file": "^6.3.2",
     "yeoman-generator": "^5.6.1",
@@ -27,6 +35,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/afeiship/generator-tpl.git"
+  },
+  "scripts": {
+    "lerna:clean": "lerna clean",
+    "lerna:list": "lerna list",
+    "lerna:bootstrap": "lerna bootstrap",
+    "build": "lerna run build --since master --no-private",
+    "publish": "npm run build && lerna publish --no-private"
   },
   "license": "MIT"
 }
