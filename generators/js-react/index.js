@@ -1,7 +1,6 @@
 'use strict';
 const Generator = require('@jswork/yeoman-generator');
 const yosay = require('yosay');
-const globby = require('globby');
 const replace = require('replace-in-file');
 const yoHelper = require('@jswork/yeoman-generator-helper');
 const genp = require('@jswork/generator-prompts');
@@ -13,7 +12,7 @@ module.exports = class extends Generator {
     this.log(
       yosay(
         `Welcome to the stunning $
-          "generator-generator-tpl"
+          "generator-tpl"
          generator!`,
       ),
     );
@@ -23,7 +22,7 @@ module.exports = class extends Generator {
 
   writing() {
     this.fs.copyTpl(
-      globby.sync(this.templatePath('**'), { dot: true }),
+      this.srcFiles,
       this.destinationPath(),
       { ...this.props, ctx: yoHelper.ctx },
     );
@@ -36,10 +35,9 @@ module.exports = class extends Generator {
     replace.sync({
       files,
       from: [
-        /boilerplate-js-react-description/g,
-        /boilerplate-js-react/g,
+        /js-react/g,
       ],
-      to: [description, project_name],
+      to: [project_name],
     });
   }
 };
