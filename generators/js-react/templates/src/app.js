@@ -6,7 +6,7 @@ const App = () => {
     <div>
       <img src={img} alt=""/>
       <h1>Hello React</h1>
-      <p>I am aric, from <strong>wuhan</strong> province.</p>
+      <p>I am aric, from <strong>http://js.work</strong></p>
     </div>
   )
 }
