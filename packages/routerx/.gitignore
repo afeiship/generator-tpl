@@ -5,13 +5,9 @@ npm-debug.log
 yarn.lock
 package-lock.json
 .DS_Store
-
-
-# vscode
-.vscode
-.history
 .idea
-
-# python cache
-__pycache__
+.vscode
 dist
+
+.tmp
+docs
