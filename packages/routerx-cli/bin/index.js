@@ -21,7 +21,12 @@ const deepEach = (ctx, fn) => {
 program.version(version);
 
 program
-  .option('-c, --cwd <string>', 'source filepath.', 'src/modules')
+  .option(
+    '-c, --cwd <string>',
+    'Source modules(pages) filepath.',
+    'src/modules'
+  )
+  .option('-p, --pretty', 'If need pretty json file.', false)
   .parse(process.argv);
 
 nx.declare({
@@ -40,6 +45,7 @@ nx.declare({
     start() {
       const nestedFiles = this.nestedFiles;
       const cwd = program.cwd;
+      const pretty = program.pretty;
       // 将 _misc.tsx 开头的文件标记为null，不属于页面模块文件
       deepEach(nestedFiles, (item, index, parent) => {
         if (item.type === 'file') {
@@ -107,7 +113,7 @@ nx.declare({
 
       fs.writeFileSync(
         `./${cwd}/.routerc.json`,
-        JSON.stringify(this.nestedFiles, null, 2)
+        JSON.stringify(this.nestedFiles, null, pretty ? 2 : 0)
       );
     }
   }
