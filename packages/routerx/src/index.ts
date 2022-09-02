@@ -1,7 +1,17 @@
 import { RouteObject } from 'react-router-dom';
 import React from 'react';
 
-function walk(ctx, fn) {
+// typings for routerx
+type WalkFn = (item: NestedTreeObject, index: number, ctx: NestedTreeObject) => void;
+type RequireFn = (value) => any;
+type NestedTreeObject = RouteObject & {
+  routerPath?: string;
+  routerFilePath?: string;
+  routerIndex?: boolean;
+  children?: NestedTreeObject[];
+};
+
+function walk(ctx: NestedTreeObject, fn: WalkFn) {
   if (ctx.children) {
     ctx.children.forEach((item, index) => {
       if (!Array.isArray(item)) {
@@ -12,7 +22,7 @@ function walk(ctx, fn) {
   }
 }
 
-export default (routerRC, req) => {
+export default (routerRC: NestedTreeObject, req: RequireFn): RouteObject[] => {
   walk(routerRC, (item) => {
     const Comp = req(item.routerFilePath);
     const Routes = Comp.Routes;
@@ -28,5 +38,6 @@ export default (routerRC, req) => {
     delete item.routerPath;
     delete item.routerFilePath;
   });
+
   return routerRC.children as RouteObject[];
 };
