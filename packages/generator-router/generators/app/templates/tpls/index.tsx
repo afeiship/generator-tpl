@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default () => {
-  return <>options list view.</>;
+  return <><%= resource_name %> list view.</>;
 };
