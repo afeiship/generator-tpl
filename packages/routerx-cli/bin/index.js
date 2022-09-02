@@ -35,13 +35,13 @@ nx.declare({
     init() {
       const target = dirTree(`./${program.cwd}`, { attributes: ['type'] });
       this.files = target.children.filter((item) => item.type === 'directory');
-      this.enumFiles = { children: this.files };
+      this.nestedFiles = { children: this.files };
     },
     start() {
-      const enumFiles = this.enumFiles;
+      const nestedFiles = this.nestedFiles;
       const cwd = program.cwd;
       // 将 _misc.tsx 开头的文件标记为null，不属于页面模块文件
-      deepEach(enumFiles, (item, index, parent) => {
+      deepEach(nestedFiles, (item, index, parent) => {
         if (item.type === 'file') {
           // console.log(item);
           if (item.name.startsWith('_') && !item.name.includes('__init__')) {
@@ -51,7 +51,7 @@ nx.declare({
       });
 
       // 结合上面步骤，清理 null 的文件
-      deepEach(enumFiles, (item, index, parent) => {
+      deepEach(nestedFiles, (item, index, parent) => {
         if (item && item.type === 'directory' && item.children.length > 0) {
           item.children = item.children.filter((item) => item !== null);
         }
@@ -89,14 +89,14 @@ nx.declare({
       });
 
       // 2. 清理 children 中的 null
-      deepEach(enumFiles, (item, index, parent) => {
+      deepEach(nestedFiles, (item, index, parent) => {
         if (item && item.type === 'directory' && item.children.length > 0) {
           item.children = item.children.filter((item) => item !== null);
         }
       });
 
       // 3. 去掉 cwd，清理 type/name/path
-      deepEach(enumFiles, (item) => {
+      deepEach(nestedFiles, (item) => {
         if (item.routerFilePath) {
           item.routerFilePath = item.routerFilePath.slice(cwd.length);
         }
@@ -107,7 +107,7 @@ nx.declare({
 
       fs.writeFileSync(
         `./${cwd}/.routerc.json`,
-        JSON.stringify(this.enumFiles, null, 2)
+        JSON.stringify(this.nestedFiles, null, 2)
       );
     }
   }
