@@ -21,11 +21,7 @@ const deepEach = (ctx, fn) => {
 program.version(version);
 
 program
-  .option(
-    '-c, --cwd <string>',
-    'Source modules(pages) filepath.',
-    'src/modules'
-  )
+  .option('-c, --cwd <string>', 'Source modules(pages) path.', 'src/modules')
   .option('-p, --pretty', 'If need pretty json file.', false)
   .parse(process.argv);
 
@@ -46,7 +42,8 @@ nx.declare({
       const nestedFiles = this.nestedFiles;
       const cwd = program.cwd;
       const pretty = program.pretty;
-      // 将 _misc.tsx 开头的文件标记为null，不属于页面模块文件
+      const targetFile = `./${cwd}/.routerc.json`;
+      // 1. 将类似于 _misc.tsx/_styled.tsx 开头的文件标记为 null，不属于页面模块文件
       deepEach(nestedFiles, (item, index, parent) => {
         if (item.type === 'file') {
           // console.log(item);
@@ -56,15 +53,15 @@ nx.declare({
         }
       });
 
-      // 结合上面步骤，清理 null 的文件
+      // 2. 结合上面步骤，清理 null 的文件
       deepEach(nestedFiles, (item, index, parent) => {
         if (item && item.type === 'directory' && item.children.length > 0) {
           item.children = item.children.filter((item) => item !== null);
         }
       });
 
-      // 在 files 上添加 routes 信息
-      // 1. 给根目录的文件夹添加 routes，因为根目录是文件夹，所以，没有 filepath
+      // 3. 在 files 上添加 routes 信息
+      // 给根目录的文件夹添加 routes，因为根目录是文件夹，所以，没有 filepath
       this.files.forEach((item) => {
         item.routerPath = `/${item.name}`;
         item.routerFilePath = null;
@@ -94,14 +91,14 @@ nx.declare({
         });
       });
 
-      // 2. 清理 children 中的 null
+      // 5. 清理 children 中的 null
       deepEach(nestedFiles, (item, index, parent) => {
         if (item && item.type === 'directory' && item.children.length > 0) {
           item.children = item.children.filter((item) => item !== null);
         }
       });
 
-      // 3. 去掉 cwd，清理 type/name/path
+      // 6. 去掉 cwd，清理 type/name/path
       deepEach(nestedFiles, (item) => {
         if (item.routerFilePath) {
           item.routerFilePath = item.routerFilePath.slice(cwd.length);
@@ -111,10 +108,10 @@ nx.declare({
         delete item.path;
       });
 
-      fs.writeFileSync(
-        `./${cwd}/.routerc.json`,
-        JSON.stringify(this.nestedFiles, null, pretty ? 2 : 0)
-      );
+      // 7. 输出内容到目标位置
+      const targetFileContent = JSON.stringify(nestedFiles, null, pretty ? 2 : 0);
+
+      fs.writeFileSync(targetFile, targetFileContent);
     }
   }
 });
