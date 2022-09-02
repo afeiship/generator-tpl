@@ -10,5 +10,9 @@ npm link
 
 ## usage
 ```shell
-yo @jswork/pypi
+# generate a resource<users>
+yo @jswork/router --resource users
+
+# defautls
+yo @jswork/router --resource users --routes_dir=src/modules/admin
 ```
