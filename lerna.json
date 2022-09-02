@@ -10,7 +10,8 @@
     "**/__tests__/**"
   ],
   "ignore": [
-    "packages/websites"
+    "packages/websites",
+    "packages/routerx-cli"
   ],
   "command": {
     "publish": {
