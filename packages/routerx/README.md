@@ -11,11 +11,48 @@
 npm install @jswork/routerx
 ```
 
+## structure
+> tree ./src directory.
+
+```conf
+.
+├── App.css
+├── App.tsx
+├── modules
+│   ├── admin
+│   │   ├── __init__.tsx
+│   │   └── users
+│   │       ├── __init__.tsx
+│   │       ├── add.tsx
+│   │       ├── edit.tsx
+│   │       └── index.tsx
+│   └── routes.tsx
+```
+
 ## usage
-```js
+> In webpack or CRA app.
+
+```ts
 import routerx from '@jswork/routerx';
 
-// usage goes here.
+const routerRC = require('./.routerc.json');
+const req = (item) => require(`.${item}`);
+
+export default routerx(routerRC, req);
+```
+
+## usage in vite
+> When in vite app.
+
+```ts
+import routerx from '@jswork/routerx';
+import viteRequire from '@jswork/vite-require';
+import routerRC from './.routerc.json';
+
+const moduleFiles = import.meta.glob('./admin/**/*.tsx', { eager: true });
+const viteReq = viteRequire(moduleFiles);
+
+export default routerx(routerRC as any, viteReq);
 ```
 
 ## license
