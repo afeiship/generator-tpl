@@ -1,6 +1,6 @@
 {
   "name": "@jswork/routerx",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate routes for react-router.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
