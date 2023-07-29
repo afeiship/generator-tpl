@@ -27,5 +27,6 @@
     "type": "git",
     "url": "https://github.com/afeiship/generator-router.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "16e73acf303905337e915210440e5fda85d7e751"
 }

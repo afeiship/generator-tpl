@@ -42,5 +42,6 @@
     "registry": "https://registry.npmjs.org"
   },
   "boilerplate": "generator-typescript",
-  "homepage": "https://js.work"
+  "homepage": "https://js.work",
+  "gitHead": "16e73acf303905337e915210440e5fda85d7e751"
 }
