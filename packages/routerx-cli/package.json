@@ -1,6 +1,6 @@
 {
   "name": "@jswork/routerx-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Generate .routerrc file for react router.",
   "homepage": "https://js.work",
@@ -39,8 +39,9 @@
     "release-it": "^14.14.3"
   },
   "keywords": [
-    "boilerplate",
-    "cli"
+    "react",
+    "router",
+    "routerx"
   ],
   "repository": {
     "type": "git",
