@@ -28,7 +28,7 @@ export default (routerRC: NestedTreeObject, req: RequireFn): RouteObject[] => {
     if (!Comp) return;
 
     const Routes = Comp.Routes;
-    const element = Comp.element || React.createElement(Comp.default);
+    const element = React.createElement(Comp.default);
     item.element = element;
 
     if (item.routerPath) item.path = item.routerPath;
