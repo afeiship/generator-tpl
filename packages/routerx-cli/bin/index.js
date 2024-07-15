@@ -43,10 +43,18 @@ nx.declare({
       const cwd = program.cwd;
       const pretty = program.pretty;
       const targetFile = `./${cwd}/.routerc.json`;
+
       // 1. 将类似于 _misc.tsx/_styled.tsx 开头的文件标记为 null，不属于页面模块文件
+      // 2. 将 _nested 形式的目录，也标记为null，不属于页面路由模块文件
+
       deepEach(nestedFiles, (item, index, parent) => {
+        if (item.type === 'directory') {
+          if (item.name.startsWith('_') && item.name.length > 1) {
+            parent.children[index] = null;
+          }
+        }
+
         if (item.type === 'file') {
-          // console.log(item);
           if (item.name.startsWith('_') && !item.name.includes('__init__')) {
             parent.children[index] = null;
           }
@@ -109,7 +117,11 @@ nx.declare({
       });
 
       // 7. 输出内容到目标位置
-      const targetFileContent = JSON.stringify(nestedFiles, null, pretty ? 2 : 0);
+      const targetFileContent = JSON.stringify(
+        nestedFiles,
+        null,
+        pretty ? 2 : 0
+      );
 
       fs.writeFileSync(targetFile, targetFileContent);
     }
