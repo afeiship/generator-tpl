@@ -13,5 +13,5 @@
     require('./build/' + file);
   });
 
-  gulp.task('default', gulp.series(['clean', 'docs']));
+  gulp.task('default', gulp.series(['clean']));
 })();
